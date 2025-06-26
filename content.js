@@ -253,6 +253,13 @@ function isLeetCodeProblemPage() {
     // Add CSS animations
     const style = document.createElement('style');
     style.textContent = `
+      /* Allow text selection in modal */
+      #lc-ai-assistant-modal, #lc-ai-assistant-modal * {
+        user-select: text !important;
+      }
+      .lc-ai-assistant-btn, .lc-ai-assistant-btn * {
+        user-select: none !important;
+      }
       @keyframes pulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.1); }
@@ -351,7 +358,6 @@ function isLeetCodeProblemPage() {
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      user-select: none;
       overflow: hidden;
       transition: all 0.3s ease;
     `;
@@ -393,7 +399,7 @@ function isLeetCodeProblemPage() {
             ">🤖</div>
             <div>
               <h3 style="margin: 0; font-size: 18px; font-weight: 600;">AI Coding Assistant</h3>
-              <small style="opacity: 0.8;">Powered by GROQ Llama3-70b</small>
+              <small style="opacity: 0.8;">Powered by Llama 4 Scout 17B 16E Instruct</small>
         </div>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -954,7 +960,7 @@ Focus on the thinking process, not the implementation.`;
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-          model: 'llama3-70b-8192',
+          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
         messages: [
           {
             role: 'system',
@@ -1050,7 +1056,7 @@ Format your response with clear sections and use markdown formatting. Highlight 
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'llama3-70b-8192',
+          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
           messages: [
             {
               role: 'system',
@@ -1444,7 +1450,7 @@ Format your response with clear sections and use markdown formatting. Highlight 
           ">🤖</div>
           <div>
             <h3 style="margin: 0; font-size: 18px; font-weight: 600;">AI Coding Assistant</h3>
-            <small style="opacity: 0.8;">Powered by GROQ Llama3-70b</small>
+            <small style="opacity: 0.8;">Powered by Llama 4 Scout 17B 16E Instruct</small>
           </div>
         `;
       }
@@ -1652,7 +1658,6 @@ Format your response with clear sections and use markdown formatting. Highlight 
             textarea.select();
             textarea.setSelectionRange(0, 99999);
             document.execCommand('copy');
-            document.body.removeChild(textarea);
             
             copyBtn.innerHTML = '✅';
             copyBtn.style.background = 'rgba(76, 175, 80, 0.9)';
@@ -1905,7 +1910,7 @@ Focus on providing a working, clean solution that can be directly used.`;
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'llama3-70b-8192',
+          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
           messages: [
             {
               role: 'system',
