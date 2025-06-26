@@ -1,0 +1,20 @@
+/* styles.css */
+.lc-ai-assistant-container {
+    display: inline-block;
+    margin-left: 15px;
+  }
+  
+  .lc-ai-assistant-btn {
+    background-color: #ffa116;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .lc-ai-assistant-btn:hover {
+    background-color: #e69110;
+  }
