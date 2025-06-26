@@ -3,8 +3,24 @@
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v1.0.0-blue.svg)](https://chrome.google.com/webstore)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-Non--Commercial-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](manifest.json)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+[![Security](https://img.shields.io/badge/security-policy-brightgreen.svg)](SECURITY.md)
+
+## 📋 Table of Contents
+
+- [🚀 Features](#-features)
+- [📦 Installation](#-installation)
+- [🎯 Quick Start](#-quick-start)
+- [🎨 UI Features](#-ui-features)
+- [⌨️ Keyboard Shortcuts](#️-keyboard-shortcuts)
+- [🔧 Configuration](#-configuration)
+- [🛠️ Development](#️-development)
+- [🤝 Contributing](#-contributing)
+- [🔒 Security](#-security)
+- [📞 Support](#-support)
+- [📄 License](#-license)
 
 ## 🚀 Features
 
@@ -23,7 +39,7 @@
 - **🎯 Resizable Interface** - Resize from any corner or edge
 
 ### 🔧 Technical Features
-- **🔐 Secure API Integration** - GROQ Llama3-70b AI model integration
+- **🔐 Secure API Integration** - GROQ Llama 4 Scout 17B AI model integration
 - **💾 State Preservation** - Never lose your work with smart state management
 - **⚡ Performance Optimized** - Lightweight and fast loading
 - **🛡️ Error Handling** - Robust error handling with user-friendly messages
@@ -39,6 +55,10 @@
 
 ### Method 2: Manual Installation (Developer Mode)
 1. Download or clone this repository
+   ```bash
+   git clone https://github.com/byteom/leetcode-ai-assistant.git
+   cd leetcode-ai-assistant
+   ```
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode" in the top right
 4. Click "Load unpacked" and select the extension folder
@@ -101,7 +121,7 @@
 ## 🔧 Configuration
 
 ### API Settings
-The extension uses GROQ's Llama3-70b model for AI responses. You'll need:
+The extension uses GROQ's Llama 4 Scout 17B model for AI responses. You'll need:
 - GROQ API key (get it from [console.groq.com](https://console.groq.com))
 - Valid API credentials
 
@@ -131,7 +151,13 @@ leetcode-ai-assistant/
 │   ├── icon32.png
 │   ├── icon48.png
 │   └── icon128.png
-└── README.md             # This file
+├── README.md             # Project documentation
+├── CONTRIBUTING.md       # Contribution guidelines
+├── LICENSE               # License file
+├── CHANGELOG.md          # Version history
+├── CODE_OF_CONDUCT.md    # Community standards
+├── SECURITY.md           # Security policy
+└── SUPPORT.md            # Support guide
 ```
 
 ### Key Components
@@ -165,7 +191,7 @@ async function callGROQAPI(prompt, apiKey) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'llama3-70b-8192',
+      model: 'meta-llama/llama-4-scout-17b-16e-instruct',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
       max_tokens: 2000
@@ -228,122 +254,166 @@ function setupCopyButtons() {
 - **Line Height**: 1.6 for optimal readability
 - **Font Weights**: 400 (normal), 600 (semibold), 700 (bold)
 
-## 🔒 Security & Privacy
-
-### Data Protection
-- **Local Storage**: API keys stored locally in Chrome storage
-- **No Data Collection**: Extension doesn't collect personal data
-- **Secure API Calls**: All API communication uses HTTPS
-- **Input Validation**: All user inputs are validated and sanitized
-
-### Privacy Features
-- **No Tracking**: No analytics or tracking scripts
-- **Offline Capable**: Works without internet (except API calls)
-- **Data Retention**: No persistent data storage on servers
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### Extension Not Loading
-1. Check if Developer mode is enabled
-2. Verify all files are present in the extension folder
-3. Check Chrome's extension page for error messages
-4. Try reloading the extension
-
-#### API Key Issues
-1. Verify your GROQ API key is correct
-2. Check if you have sufficient API credits
-3. Ensure the API key has proper permissions
-4. Try regenerating the API key
-
-#### Copy Function Not Working
-1. Check browser permissions for clipboard access
-2. Try using the fallback copy method
-3. Verify the code block is properly formatted
-4. Check browser console for error messages
-
-#### Modal Not Appearing
-1. Ensure you're on a LeetCode problem page
-2. Check if the extension is enabled
-3. Try refreshing the page
-4. Check for JavaScript errors in console
-
-### Debug Mode
-Enable debug mode by adding `?debug=true` to any LeetCode URL. This will:
-- Show detailed console logs
-- Display API request/response data
-- Enable additional error reporting
-- Show modal state information
-
-## 📈 Performance Optimization
-
-### Loading Speed
-- **Lazy Loading**: Components load only when needed
-- **Minified Assets**: All CSS and JS are optimized
-- **Efficient DOM**: Minimal DOM manipulation
-- **Caching**: Smart caching of API responses
-
-### Memory Management
-- **Event Cleanup**: Proper removal of event listeners
-- **DOM Cleanup**: Automatic cleanup of temporary elements
-- **State Optimization**: Efficient state management
-- **Resource Management**: Proper resource disposal
-
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these guidelines:
+We welcome contributions from the community! This project thrives on collaboration and we appreciate all forms of contributions.
 
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+### 🎯 How You Can Contribute
 
-### Code Style
-- Use consistent indentation (2 spaces)
-- Follow JavaScript ES6+ standards
-- Add comments for complex logic
-- Maintain existing code structure
+- **🐛 Bug Reports**: Help us identify and fix issues
+- **💡 Feature Requests**: Suggest new features and improvements
+- **📝 Documentation**: Improve guides and documentation
+- **🎨 UI/UX**: Enhance the user interface and experience
+- **🔧 Code**: Submit pull requests with improvements
+- **🧪 Testing**: Help test features and report issues
+- **🌐 Community**: Help other users and spread the word
 
-### Testing
-- Test on different Chrome versions
-- Verify all features work correctly
-- Check for memory leaks
-- Test error scenarios
+### 🚀 Quick Start for Contributors
 
-## 📄 License
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/byteom/leetcode-ai-assistant.git
+   cd leetcode-ai-assistant
+   ```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+2. **Set up development environment**
+   - Load the extension in Chrome developer mode
+   - Test on LeetCode problem pages
+   - Check browser console for debugging
 
-## 🙏 Acknowledgments
+3. **Make your changes**
+   - Follow our coding standards
+   - Test thoroughly
+   - Update documentation if needed
 
-- **GROQ** for providing the AI API
-- **LeetCode** for the problem platform
-- **Chrome Extensions Team** for the extension framework
-- **Open Source Community** for inspiration and tools
+4. **Submit your contribution**
+   - Create a pull request
+   - Follow our PR template
+   - Wait for review and feedback
+
+### 📋 Contribution Guidelines
+
+- **Code Style**: Follow existing code patterns and conventions
+- **Testing**: Test on multiple browsers and LeetCode pages
+- **Documentation**: Update docs for new features
+- **Communication**: Be respectful and constructive
+- **Licensing**: All contributions are licensed under the same terms
+
+### 📚 Detailed Information
+
+For comprehensive contribution guidelines, please see:
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Detailed contribution process
+- **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** - Community standards
+- **[SECURITY.md](SECURITY.md)** - Security reporting procedures
+
+## 🔒 Security
+
+We take security seriously and appreciate security researchers who help us maintain a secure codebase.
+
+### 🛡️ Security Features
+
+- **Secure API Communication**: All API calls use HTTPS
+- **Input Validation**: All user inputs are validated and sanitized
+- **No Data Collection**: Extension doesn't collect personal data
+- **Local Storage**: API keys stored securely in browser storage
+- **Error Handling**: Secure error handling prevents information disclosure
+
+### 🚨 Reporting Security Issues
+
+**Please do NOT report security vulnerabilities through public GitHub issues.**
+
+Instead, please report them privately:
+- **Email**: [security@example.com](mailto:security@example.com)
+- **Subject**: `[SECURITY] LeetCode AI Assistant Vulnerability Report`
+- **Response Time**: We aim to respond within 48 hours
+
+For detailed security information, see **[SECURITY.md](SECURITY.md)**.
 
 ## 📞 Support
 
-### Getting Help
-- **GitHub Issues**: Report bugs and request features
-- **Documentation**: Check this README for solutions
-- **Community**: Join our Discord server for discussions
+We're here to help! Here are the best ways to get support:
 
-### Contact
-- **Email**: support@leetcode-ai-assistant.com
-- **Twitter**: [@LeetCodeAI](https://twitter.com/LeetCodeAI)
-- **Discord**: [Join our server](https://discord.gg/leetcode-ai)
+### 🆘 Getting Help
+
+1. **📖 Check Documentation**: Start with this README and [SUPPORT.md](SUPPORT.md)
+2. **🔍 Search Issues**: Check existing GitHub issues for solutions
+3. **🐛 Report Bugs**: Create a new issue with detailed information
+4. **💡 Request Features**: Suggest new features through GitHub issues
+5. **📧 Contact Us**: Reach out for direct support
+
+### 📋 Support Resources
+
+- **[SUPPORT.md](SUPPORT.md)** - Comprehensive support guide
+- **[GitHub Issues](https://github.com/byteom/leetcode-ai-assistant/issues)** - Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/byteom/leetcode-ai-assistant/discussions)** - Community discussions
+- **[Wiki](https://github.com/byteom/leetcode-ai-assistant/wiki)** - Additional documentation
+
+### 🐛 Common Issues
+
+- **Extension not loading**: Check developer mode and file permissions
+- **API key issues**: Verify GROQ API key and credits
+- **Modal not appearing**: Ensure you're on a LeetCode problem page
+- **Copy function not working**: Check browser clipboard permissions
+
+For detailed troubleshooting, see **[SUPPORT.md](SUPPORT.md)**.
+
+## 📄 License
+
+This project is licensed under the **Advanced Non-Commercial License** - see the [LICENSE](LICENSE) file for details.
+
+### 📋 License Summary
+
+**✅ Permitted:**
+- Personal and educational use
+- Contributing to the project
+- Forking for personal use
+- Modifying for personal use
+
+**❌ Prohibited:**
+- Commercial use or distribution
+- Selling the software or derivatives
+- Using in commercial products
+- Removing license terms
+
+For complete license terms, see **[LICENSE](LICENSE)**.
+
+## 🙏 Acknowledgments
+
+- **GROQ** for providing the AI API and Llama 4 Scout 17B model
+- **LeetCode** for the problem platform and community
+- **Chrome Extensions Team** for the extension framework
+- **Open Source Community** for inspiration, tools, and contributions
+- **All Contributors** who help improve this project
+
+## 📊 Project Statistics
+
+[![GitHub stars](https://img.shields.io/github/stars/byteom/leetcode-ai-assistant?style=social)](https://github.com/byteom/leetcode-ai-assistant)
+[![GitHub forks](https://img.shields.io/github/forks/byteom/leetcode-ai-assistant?style=social)](https://github.com/byteom/leetcode-ai-assistant)
+[![GitHub issues](https://img.shields.io/github/issues/byteom/leetcode-ai-assistant)](https://github.com/byteom/leetcode-ai-assistant/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/byteom/leetcode-ai-assistant)](https://github.com/byteom/leetcode-ai-assistant/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/byteom/leetcode-ai-assistant)](https://github.com/byteom/leetcode-ai-assistant/graphs/contributors)
+
+## 🔗 Quick Links
+
+- **[📖 Documentation](https://github.com/byteom/leetcode-ai-assistant/wiki)**
+- **[🐛 Report Bug](https://github.com/byteom/leetcode-ai-assistant/issues/new?template=bug_report.md)**
+- **[💡 Request Feature](https://github.com/byteom/leetcode-ai-assistant/issues/new?template=feature_request.md)**
+- **[🤝 Contribute](CONTRIBUTING.md)**
+- **[🔒 Security](SECURITY.md)**
+- **[📞 Support](SUPPORT.md)**
+- **[📄 License](LICENSE)**
+- **[📝 Changelog](CHANGELOG.md)**
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by the LeetCode AI Assistant Team**
+**Made with ❤️ by the LeetCode AI Assistant Community**
 
-[![GitHub stars](https://img.shields.io/github/stars/username/leetcode-ai-assistant?style=social)](https://github.com/username/leetcode-ai-assistant)
-[![GitHub forks](https://img.shields.io/github/forks/username/leetcode-ai-assistant?style=social)](https://github.com/username/leetcode-ai-assistant)
-[![GitHub issues](https://img.shields.io/github/issues/username/leetcode-ai-assistant)](https://github.com/username/leetcode-ai-assistant/issues)
+[![GitHub stars](https://img.shields.io/github/stars/byteom/leetcode-ai-assistant?style=social)](https://github.com/byteom/leetcode-ai-assistant)
+[![GitHub forks](https://img.shields.io/github/forks/byteom/leetcode-ai-assistant?style=social)](https://github.com/byteom/leetcode-ai-assistant)
+[![GitHub issues](https://img.shields.io/github/issues/byteom/leetcode-ai-assistant)](https://github.com/byteom/leetcode-ai-assistant/issues)
+
+**⭐ Star this repository if you find it helpful!**
 
 </div>

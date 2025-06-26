@@ -1,0 +1,155 @@
+# LeetCode AI Assistant License Agreement
+
+**Version 2.0 - Advanced Non-Commercial License**
+
+**Effective Date:** [Current Date]
+
+## 📜 License Terms
+
+This software and associated documentation files (the "Software") are licensed under the LeetCode AI Assistant License Agreement (the "License"). By using, copying, modifying, or distributing the Software, you agree to be bound by the terms of this License.
+
+## 🎯 Permitted Uses
+
+### ✅ What You CAN Do:
+
+1. **Personal Use**: Use the Software for your personal learning and development purposes
+2. **Educational Use**: Use the Software in educational institutions for teaching and learning
+3. **Contributions**: Contribute code, documentation, or improvements to the project
+4. **Forking**: Fork the repository for personal use or contributions
+5. **Modification**: Modify the Software for personal use or to contribute back to the project
+6. **Distribution of Contributions**: Distribute your contributions under the same license terms
+
+### ❌ What You CANNOT Do:
+
+1. **Commercial Use**: Use the Software for any commercial purpose, including but not limited to:
+   - Selling the Software or any derivative works
+   - Using the Software in a commercial product or service
+   - Charging money for access to the Software
+   - Using the Software to generate revenue
+
+2. **Redistribution for Profit**: Distribute, sell, or offer the Software for sale
+3. **Commercial Derivatives**: Create commercial derivative works based on the Software
+4. **Reverse Engineering for Commercial Use**: Reverse engineer the Software for commercial purposes
+5. **Removal of License**: Remove or modify the license terms from any copy of the Software
+
+## 🔒 Intellectual Property Rights
+
+### Copyright Notice
+```
+Copyright (c) 2024 LeetCode AI Assistant Contributors
+All rights reserved.
+
+This software is provided "as is" without warranty of any kind.
+```
+
+### Ownership
+- The original Software and its intellectual property rights remain with the original authors
+- Contributors retain rights to their contributions
+- All contributions are licensed under the same terms as this License
+
+## 🤝 Contribution Terms
+
+### Contributor License Agreement
+By contributing to this project, you agree that:
+
+1. **License Grant**: Your contributions are licensed under the same terms as this License
+2. **Warranty**: You have the right to grant the license for your contributions
+3. **No Commercial Use**: You understand that your contributions cannot be used commercially
+4. **Attribution**: You will be credited for your contributions in the project documentation
+
+### Contribution Guidelines
+- All contributions must follow the project's coding standards
+- Contributions must include appropriate documentation
+- Contributors must sign off on their commits
+- All contributions are subject to review and approval
+
+## 📋 License Conditions
+
+### Attribution Requirements
+When using, modifying, or distributing the Software, you must:
+
+1. **Preserve Copyright Notice**: Keep all copyright and license notices intact
+2. **Credit Contributors**: Acknowledge all contributors in any derivative works
+3. **License Notice**: Include a copy of this License with any distribution
+4. **Source Code**: Provide access to the source code of any modifications
+
+### Distribution Requirements
+If you distribute the Software or any modifications:
+
+1. **License Copy**: Include a copy of this License
+2. **Source Code**: Provide access to the complete source code
+3. **Modification Notice**: Clearly indicate any modifications made
+4. **Contributor Credits**: Maintain a list of all contributors
+
+## 🚫 Prohibited Activities
+
+### Commercial Restrictions
+- **No Commercial Distribution**: You may not distribute the Software commercially
+- **No Commercial Services**: You may not use the Software to provide commercial services
+- **No Commercial Integration**: You may not integrate the Software into commercial products
+- **No Commercial Licensing**: You may not license the Software to others for commercial use
+
+### Modification Restrictions
+- **No License Removal**: You may not remove or modify the license terms
+- **No Copyright Removal**: You may not remove copyright notices
+- **No Attribution Removal**: You may not remove contributor attributions
+
+## 🔍 Enforcement
+
+### Violation Consequences
+Violation of this License may result in:
+
+1. **License Termination**: Automatic termination of your rights under this License
+2. **Legal Action**: Potential legal action for copyright infringement
+3. **Community Action**: Removal from the project community
+4. **Public Notice**: Public disclosure of violations
+
+### Reporting Violations
+To report violations of this License:
+
+1. **Document the Violation**: Collect evidence of the violation
+2. **Contact Maintainers**: Reach out to the project maintainers
+3. **Provide Details**: Include specific details about the violation
+4. **Follow Up**: Cooperate with any investigation
+
+## 📞 Contact Information
+
+For questions about this License or to report violations:
+
+- **Project Repository**: https://github.com/byteom/leetcode-ai-assistant
+- **Maintainer Email**: [Maintainer Email]
+- **Issue Tracker**: https://github.com/byteom/leetcode-ai-assistant/issues
+
+## 🔄 License Updates
+
+### Version Control
+- This License may be updated from time to time
+- Users will be notified of significant changes
+- Previous versions remain valid for existing distributions
+- New versions apply to new distributions
+
+### Notification Process
+- License updates will be announced in the project repository
+- Major changes will be communicated through project channels
+- Users are responsible for staying informed about updates
+
+## 📚 Additional Terms
+
+### Disclaimer of Warranty
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+### Limitation of Liability
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OF OR INABILITY TO USE THE SOFTWARE, EVEN IF THE AUTHORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+### Governing Law
+This License shall be governed by and construed in accordance with the laws of [Jurisdiction], without regard to its conflict of law provisions.
+
+## 📝 Acceptance
+
+By using, copying, modifying, or distributing the Software, you indicate your acceptance of this License and agree to be bound by its terms and conditions.
+
+---
+
+**Last Updated:** [Current Date]  
+**License Version:** 2.0  
+**License Type:** Advanced Non-Commercial License
