@@ -2,37 +2,56 @@
 <html>
 <head>
   <title>LeetCode AI Assistant</title>
-  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       width: 350px;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Arial', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
     h1 {
-      font-size: 20px;
-      margin-top: 0;
-      color: #263238;
+      font-size: 22px;
+      margin: 28px 0 18px 0;
+      color: #fff;
       text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(102,126,234,0.18);
     }
     .popup-section {
-      margin-bottom: 20px;
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 22px;
+      background: #fff;
+      padding: 20px 18px 18px 18px;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(102,126,234,0.13), 0 1.5px 6px rgba(118,75,162,0.08);
+      width: 100%;
+      max-width: 320px;
+      position: relative;
+      animation: floatIn 0.7s cubic-bezier(.23,1.01,.32,1) 1;
+    }
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(30px) scale(0.97); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .welcome-message {
       text-align: center;
-      color: #666;
+      color: #764ba2;
       margin-bottom: 15px;
+      font-size: 1.05rem;
+      font-weight: 500;
     }
     .api-key-status {
       padding: 10px;
-      border-radius: 4px;
+      border-radius: 6px;
       margin-bottom: 15px;
       text-align: center;
+      font-size: 0.98rem;
     }
     .api-key-saved {
       background-color: #d1fae5;
@@ -46,46 +65,88 @@
     }
     .api-key-input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
+      padding: 11px;
+      margin-bottom: 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
       box-sizing: border-box;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #f8f9fa;
+      transition: border 0.2s;
+    }
+    .api-key-input:focus {
+      border: 1.5px solid #764ba2;
+      outline: none;
+      background: #fff;
     }
     .save-btn {
       width: 100%;
-      padding: 10px;
-      background-color: #10b981;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #667eea 0%, #f093fb 100%);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.10);
+      transition: background 0.2s, transform 0.2s;
     }
     .save-btn:hover {
-      background-color: #0d9f6e;
+      background: linear-gradient(90deg, #f093fb 0%, #667eea 100%);
+      transform: translateY(-2px) scale(1.03);
     }
     .change-key-btn {
       width: 100%;
-      padding: 8px;
-      background-color: #f3f4f6;
-      color: #374151;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
+      padding: 9px 0;
+      background: #f3f4f6;
+      color: #764ba2;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
       cursor: pointer;
       margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s, border 0.2s;
     }
     .change-key-btn:hover {
-      background-color: #e5e7eb;
+      background: #ede9fe;
+      color: #333;
+      border: 1.5px solid #764ba2;
     }
     .platform-info {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.5;
+      font-size: 15px;
+      color: #495057;
+      line-height: 1.6;
     }
     .platform-info h4 {
-      color: #263238;
+      color: #667eea;
       margin-bottom: 8px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      margin-top: 18px;
+    }
+    .platform-info h4:first-child {
+      margin-top: 0;
+    }
+    .platform-info ul {
+      margin: 0 0 10px 18px;
+      padding: 0;
+    }
+    .platform-info li {
+      margin-bottom: 5px;
+    }
+    .platform-info a {
+      color: #764ba2;
+      text-decoration: underline;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .platform-info a:hover {
+      color: #f093fb;
     }
     .hidden {
       display: none;
@@ -94,24 +155,19 @@
 </head>
 <body>
   <h1>LeetCode AI Assistant</h1>
-  
   <div class="popup-section">
     <div class="welcome-message">
       Welcome to LeetCode AI Assistant! Get AI-powered explanations, solutions, and thinking approaches for LeetCode problems.
     </div>
-    
     <div id="api-key-status" class="api-key-status">
       <!-- Status will be populated by JavaScript -->
     </div>
-    
     <div id="api-key-form" class="hidden">
       <input type="password" id="popup-api-key" class="api-key-input" placeholder="Enter your GROQ API key">
       <button id="popup-save-key" class="save-btn">Save API Key</button>
     </div>
-    
     <button id="change-key-btn" class="change-key-btn hidden">Change API Key</button>
   </div>
-  
   <div class="popup-section">
     <div class="platform-info">
       <h4>How to use:</h4>
@@ -120,19 +176,16 @@
         <li>Click the "AI Assistant" button</li>
         <li>Choose from: Explain Problem, Show Solution, or Thinking Approach</li>
       </ul>
-      
       <h4>Platform Info:</h4>
       <ul>
         <li><strong>AI Model:</strong> GROQ Llama3-70b-8192</li>
         <li><strong>Features:</strong> Problem explanations, code solutions, thinking approaches</li>
         <li><strong>Languages:</strong> Python, JavaScript, and more</li>
       </ul>
-      
       <h4>API Key:</h4>
       <p>You need a GROQ API key to use this extension. Get one for free at <a href="https://console.groq.com/" target="_blank">console.groq.com</a></p>
     </div>
   </div>
-  
   <script src="popup.js"></script>
 </body>
 </html>
