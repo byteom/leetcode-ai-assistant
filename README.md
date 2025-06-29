@@ -1,3 +1,26 @@
+## ⏱️ Time & Space Complexity Estimator
+
+This module provides estimated **Big O** time and space complexities for Python functions.
+
+### Features:
+- Detects common patterns like nested loops, recursion, and list growth
+- Outputs both time and space complexity
+- Helpful for understanding algorithm efficiency
+
+### Example:
+**Input Code:**
+```python
+def bubble_sort(arr):
+    for i in range(len(arr)):
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
