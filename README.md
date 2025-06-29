@@ -1,3 +1,19 @@
+## 🧠 Natural Language to Code (NL2Code)
+This feature converts plain English problem statements into working Python code using an LLM backend.
+
+### Example:
+**Input:** "Find the factorial of a number"  
+**Output:**
+```python
+def factorial(n):
+    return 1 if n == 0 else n * factorial(n - 1)
+
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
