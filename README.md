@@ -1,3 +1,14 @@
+## 🎥 Demo
+
+![Prompt Screenshot](assets/demo.png)
+
+_Above: Sample prompt sent to the AI assistant and the response returned._
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
