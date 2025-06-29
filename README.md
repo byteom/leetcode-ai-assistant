@@ -1,3 +1,21 @@
+## 🧰 Tech Stack
+
+- Python 3.9+
+- LangGraph
+- CrewAI
+- OpenAI GPT-4 API
+- pytesseract (OCR)
+- dotenv
+
+
+
+
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
