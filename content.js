@@ -893,29 +893,34 @@ function isLeetCodeProblemPage() {
   
   // Handle option click
   function handleOptionClick(option) {
-    
-    console.log('Option clicked:', option);
-    const problemTitle = getProblemTitle();
-    const problemDescription = getProblemDescription();
-    
-    console.log('Problem title:', problemTitle);
-    console.log('Problem description length:', problemDescription ? problemDescription.length : 0);
-    
-    if (!problemTitle || !problemDescription) {
-      showError('Could not extract problem information. Please try again.');
-      return;
-    }
+  console.log('Option clicked:', option);
+  const problemTitle = getProblemTitle();
+  const problemDescription = getProblemDescription();
+  
+  console.log('Problem title:', problemTitle);
+  console.log('Problem description length:', problemDescription ? problemDescription.length : 0);
+  
+  if (!problemTitle || !problemDescription) {
+    showError('Could not extract problem information. Please try again.');
+    return;
+  }
+   if (activeRequestController) {
+    activeRequestController.abort();
+    console.log('Cancelled previous request');
+  }
+  activeRequestController = new AbortController();
+  
     
     
     // Get API key from storage
-    chrome.storage.sync.get(['groqApiKey'], (result) => {
-      const apiKey = result.groqApiKey;
+     chrome.storage.sync.get(['groqApiKey'], (result) => {
+    const apiKey = result.groqApiKey;
     if (!apiKey) {
-        showError('Please set your GROQ API key in the extension popup first.');
+      showError('Please set your GROQ API key in the extension popup first.');
       return;
     }
     
-      console.log('Making API call to GROQ...');
+    console.log('Making API call to GROQ...');
     showLoading();
     
     let prompt;
@@ -924,7 +929,7 @@ function isLeetCodeProblemPage() {
         prompt = `Explain the following LeetCode problem in simple terms:\n\nTitle: ${problemTitle}\n\nDescription: ${problemDescription}\n\nProvide a clear explanation of what the problem is asking, with examples if needed. Break down any complex terms or concepts.`;
         break;
       case 'solution':
-          prompt = `I need a solution for the following LeetCode problem. Please ask me which programming language I prefer (Python, JavaScript, Java, C++, etc.) and then provide a complete solution in that language.
+        prompt = `I need a solution for the following LeetCode problem. Please ask me which programming language I prefer (Python, JavaScript, Java, C++, etc.) and then provide a complete solution in that language.
 
 Problem: ${problemTitle}
 Description: ${problemDescription}
@@ -938,7 +943,7 @@ Please respond with:
    - Handle edge cases properly`;
         break;
       case 'thinking':
-          prompt = `Provide different thinking approaches and strategies for solving the following LeetCode problem. DO NOT provide the actual code solution, only the thinking process and different approaches.
+        prompt = `Provide different thinking approaches and strategies for solving the following LeetCode problem. DO NOT provide the actual code solution, only the thinking process and different approaches.
 
 Problem: ${problemTitle}
 Description: ${problemDescription}
@@ -954,7 +959,6 @@ Please provide:
 Focus on the thinking process, not the implementation.`;
         break;
     }
-    
     // Send request to GROQ API
     fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -963,30 +967,31 @@ Focus on the thinking process, not the implementation.`;
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful coding assistant that helps with LeetCode problems. Provide clear, concise, and accurate explanations.'
+            content: 'You are an expert code reviewer and programming tutor. Provide detailed, constructive feedback on code with specific line numbers and clear explanations.'
           },
           {
             role: 'user',
             content: prompt
           }
         ],
-        temperature: 0.7,
-        max_tokens: 2000
-      })
+        temperature: 0.3,
+        max_tokens: 3000
+      }),
+      signal: activeRequestController.signal
     })
-      .then(response => {
-        console.log('API Response status:', response.status);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+    .then(response => {
+      console.log('API Response status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
-        console.log('API Response data:', data);
+      console.log('API Response data:', data);
       hideLoading();
       if (data.choices && data.choices[0] && data.choices[0].message) {
         showResponse(data.choices[0].message.content);
@@ -995,13 +1000,19 @@ Focus on the thinking process, not the implementation.`;
       }
     })
     .catch(error => {
+      // Only show error if it wasn't an abort error
+      if (error.name !== 'AbortError') {
         console.error('API Error:', error);
-      hideLoading();
-      showError('Error contacting GROQ API: ' + error.message);
-      });
+        hideLoading();
+        showError('Error contacting GROQ API: ' + error.message);
+      }
+    })
+    .finally(() => {
+      // Reset the controller after request completes
+      activeRequestController = null;
     });
-  }
-  
+  });
+}
   // Handle code analysis
   function handleCodeAnalysis() {
     const codeTextarea = document.getElementById('lc-ai-code-textarea');
@@ -1872,26 +1883,35 @@ Format your response with clear sections and use markdown formatting. Highlight 
   
   // Function to handle solution with selected language
   function handleSolutionWithLanguage(language) {
-    const problemTitle = getProblemTitle();
-    const problemDescription = getProblemDescription();
+  const problemTitle = getProblemTitle();
+  const problemDescription = getProblemDescription();
+  
+  if (!problemTitle || !problemDescription) {
+    showError('Could not extract problem information. Please try again.');
+    return;
+  }
+  
+  // Cancel any pending request
+  if (activeRequestController) {
+    activeRequestController.abort();
+    console.log('Cancelled previous request');
+  }
+  
+  // Create new AbortController for this request
+  activeRequestController = new AbortController();
     
-    if (!problemTitle || !problemDescription) {
-      showError('Could not extract problem information. Please try again.');
+    // Get API key from storage
+   chrome.storage.sync.get(['groqApiKey'], (result) => {
+    const apiKey = result.groqApiKey;
+    if (!apiKey) {
+      showError('Please set your GROQ API key in the extension popup first.');
       return;
     }
     
-    // Get API key from storage
-    chrome.storage.sync.get(['groqApiKey'], (result) => {
-      const apiKey = result.groqApiKey;
-      if (!apiKey) {
-        showError('Please set your GROQ API key in the extension popup first.');
-        return;
-      }
-      
-      console.log('Making API call to GROQ for solution in', language);
-      showLoading();
-      
-      const prompt = `Provide a complete solution for the following LeetCode problem in ${language}:
+    console.log('Making API call to GROQ for solution in', language);
+    showLoading();
+    
+    const prompt = `Provide a complete solution for the following LeetCode problem in ${language}:
 
 Problem: ${problemTitle}
 Description: ${problemDescription}
@@ -1904,50 +1924,58 @@ Please provide:
 5. Make sure the code is properly formatted and ready to copy-paste
 
 Focus on providing a working, clean solution that can be directly used.`;
-      
-      // Send request to GROQ API
-      fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-          messages: [
-            {
-              role: 'system',
-              content: `You are an expert ${language} programmer. Provide clean, well-commented code solutions that are ready to use.`
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.3,
-          max_tokens: 3000
-        })
-      })
-      .then(response => {
-        console.log('API Response status:', response.status);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('API Response data:', data);
-        hideLoading();
-        if (data.choices && data.choices[0] && data.choices[0].message) {
-          showResponse(data.choices[0].message.content);
-        } else {
-          showError('Failed to get response from AI. Please check your API key and try again.');
-        }
-      })
-      .catch(error => {
+    
+    // Send request to GROQ API with abort signal
+    fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        messages: [
+          {
+            role: 'system',
+            content: `You are an expert ${language} programmer. Provide clean, well-commented code solutions that are ready to use.`
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.3,
+        max_tokens: 3000
+      }),
+      signal: activeRequestController.signal
+    })
+    .then(response => {
+      console.log('API Response status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('API Response data:', data);
+      hideLoading();
+      if (data.choices && data.choices[0] && data.choices[0].message) {
+        showResponse(data.choices[0].message.content);
+      } else {
+        showError('Failed to get response from AI. Please check your API key and try again.');
+      }
+    })
+    .catch(error => {
+      // Only show error if it wasn't an abort error
+      if (error.name !== 'AbortError') {
         console.error('API Error:', error);
         hideLoading();
         showError('Error contacting GROQ API: ' + error.message);
-      });
+      }
+    })
+    .finally(() => {
+      // Reset the controller after request completes
+      activeRequestController = null;
     });
-  }
+  });
+}
