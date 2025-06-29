@@ -1,4 +1,5 @@
-// Detect when on a LeetCode problem page
+//to fix race condition in api calls
+let activeRequestController = null; 
 function isLeetCodeProblemPage() {
     return window.location.href.includes('/problems/');
   }
@@ -892,6 +893,7 @@ function isLeetCodeProblemPage() {
   
   // Handle option click
   function handleOptionClick(option) {
+    
     console.log('Option clicked:', option);
     const problemTitle = getProblemTitle();
     const problemDescription = getProblemDescription();
@@ -903,6 +905,7 @@ function isLeetCodeProblemPage() {
       showError('Could not extract problem information. Please try again.');
       return;
     }
+    
     
     // Get API key from storage
     chrome.storage.sync.get(['groqApiKey'], (result) => {
