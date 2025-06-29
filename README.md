@@ -1,3 +1,22 @@
+## 🤝 Contributing
+
+We welcome contributions! Here’s how you can help:
+
+1. Fork the repository
+2. Create your branch (`git checkout -b feature-name`)
+3. Make changes and commit (`git commit -m "Add: feature-name"`)
+4. Push to your fork (`git push origin feature-name`)
+5. Submit a pull request
+
+You can contribute to:
+- Improving prompt clarity
+- Adding example LeetCode problems
+- Enhancing code or UI
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
