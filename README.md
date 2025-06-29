@@ -1,3 +1,25 @@
+## ⚙️ Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/byteom/leetcode-ai-assistant.git
+cd leetcode-ai-assistant
+
+# (Optional) Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install required packages
+pip install -r requirements.txt
+
+# Run the app
+python main.py
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
