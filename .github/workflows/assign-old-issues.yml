@@ -1,0 +1,31 @@
+name: Assign Existing Issues to Creators
+
+on:
+  workflow_dispatch:  # 👈 Allows manual triggering
+
+jobs:
+  assign-old-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign all unassigned issues to their creators
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            for (const issue of issues) {
+              if (!issue.assignee) {
+                console.log(`Assigning issue #${issue.number} to ${issue.user.login}`);
+                await github.rest.issues.addAssignees({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  assignees: [issue.user.login]
+                });
+              }
+            }
