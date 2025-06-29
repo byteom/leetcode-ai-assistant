@@ -34,8 +34,15 @@
       "128": "icons/icon128.png"
     }
   },
-  "web_accessible_resources": [{
-    "resources": ["modal.css"],
+  "web_accessible_resources": [
+  {
+    "resources": [
+      "modal.css",
+      "fonts/Montserrat-Regular.woff2",
+      "fonts/Montserrat-Bold.woff2",
+      "fonts/Montserrat-ThinItalic.woff2"
+    ],
     "matches": ["https://leetcode.com/*"]
-  }]
+  }
+]
 }
