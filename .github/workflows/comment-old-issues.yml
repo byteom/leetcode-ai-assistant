@@ -1,0 +1,49 @@
+name: Comment on Existing Issues
+
+on:
+  workflow_dispatch:  # 👈 Run manually
+
+jobs:
+  comment-old-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment to old issues
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            console.log(`📌 Found ${issues.length} open issues`);
+
+            for (const issue of issues) {
+              const username = issue.user.login;
+
+              const message = `
+Hi @${username} 👋
+
+Just a reminder — this issue is open and assigned to you (or intended for you).  
+You’re welcome to **start working** on it.
+
+🚀 **What to do next:**
+- Fork the repo
+- Make your changes
+- Submit a PR with \`Fixes #${issue.number}\`
+
+Looking forward to your contribution! 💻🔥
+              `;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: message
+              });
+
+              console.log(`💬 Commented on issue #${issue.number}`);
+            }
