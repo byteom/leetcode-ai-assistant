@@ -1,3 +1,16 @@
+## 📘 Code Explanation Generator
+Get detailed explanations of Python code using AI.
+
+### Example:
+**Input:**
+```python
+def reverse_string(s):
+    return s[::-1]
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
