@@ -683,6 +683,15 @@ function isLeetCodeProblemPage() {
           background: transparent;
         "></div>
       </div>
+      <div id="lc-ai-resize-handle" style="
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+"></div>
     `;
     
     document.body.appendChild(modal);
@@ -866,19 +875,27 @@ function isLeetCodeProblemPage() {
     }
     
     function drag(e) {
-      if (isDragging) {
-        e.preventDefault();
-        
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
-        
-        xOffset = currentX;
-        yOffset = currentY;
-        
-        setTranslate(currentX, currentY, modal);
-      }
-    }
-    
+  if (!isDragging) return;
+
+  e.preventDefault();
+
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const modalRect = modal.getBoundingClientRect();
+
+  currentX = e.clientX - initialX;
+  currentY = e.clientY - initialY;
+
+  // Clamp to viewport
+  const maxX = screenWidth - modalRect.width;
+  const maxY = screenHeight - modalRect.height;
+
+  xOffset = Math.max(0, Math.min(currentX, maxX));
+  yOffset = Math.max(0, Math.min(currentY, maxY));
+
+  setTranslate(xOffset, yOffset, modal);
+}
+
     function setTranslate(xPos, yPos, el) {
       el.style.transform = `translate(${xPos}px, ${yPos}px)`;
     }
@@ -1138,28 +1155,41 @@ Format your response with clear sections and use markdown formatting. Highlight 
   
   // Enhanced response display with auto-scroll
   function showResponse(content) {
-    const responseElement = document.getElementById('lc-ai-response-content');
-    const responseArea = document.getElementById('lc-ai-response');
-    
-    if (responseElement) {
-      responseElement.innerHTML = simpleMarkdownToHtml(content);
-      
-      // Save current response to state
-      modalState.currentResponse = responseElement.innerHTML;
-      
-      // Auto-scroll to top of response
-      setTimeout(() => {
-        if (responseArea) {
-          responseArea.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 100);
-      
-      // Setup copy buttons
-      setTimeout(() => {
-        setupCopyButtons();
-      }, 100);
-    }
+  const responseElement = document.getElementById('lc-ai-response-content');
+  const responseArea = document.getElementById('lc-ai-response');
+
+  if (!responseElement) return;
+
+  responseElement.innerHTML = `
+    <div style="margin-bottom: 15px;">
+      <button id="lc-ai-back-to-lang" style="
+        padding: 10px 15px;
+        background-color: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        color: #333;
+        transition: background 0.2s;
+      ">← Back to Language Selection</button>
+    </div>
+    <div>${simpleMarkdownToHtml(content)}</div>
+  `;
+
+  // Attach event listener for back button
+  const backBtn = document.getElementById('lc-ai-back-to-lang');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      showLanguageSelection(); // Go back to choose language
+    });
   }
+
+  // Optional: scroll to top
+  if (responseArea) {
+    responseArea.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
   
   function showError(message) {
     const responseElement = document.getElementById('lc-ai-response-content');
@@ -1394,8 +1424,6 @@ function maximizeModal(modal) {
     }
     
     modalState.isMinimized = true;
-  }
-  
   // Function to restore modal
   function restoreModal(modal) {
     if (!modalState.isMinimized) return;
