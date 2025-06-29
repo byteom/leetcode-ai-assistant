@@ -1,3 +1,12 @@
+## 🧠 LeetCode AI Assistant
+
+This project provides AI-generated help for solving LeetCode-style problems using GPT-based reasoning. Ideal for developers, students, and interview prep.
+
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
