@@ -34,8 +34,10 @@
       "128": "icons/icon128.png"
     }
   },
-  "web_accessible_resources": [{
-    "resources": ["modal.css"],
-    "matches": ["https://leetcode.com/*"]
-  }]
+  "web_accessible_resources": [
+    {
+      "resources": ["modal.css"],
+      "matches": ["https://leetcode.com/*"]
+    }
+  ]
 }
