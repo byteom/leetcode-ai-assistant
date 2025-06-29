@@ -17,8 +17,7 @@ jobs:
             const issue = context.payload.issue;
             const username = issue.user.login;
 
-            const message = `
-Hi @${username} 👋
+            const message = `Hi @${username} 👋
 
 Thanks for creating this issue! 🎉  
 You're now welcome to start working on it.
@@ -31,8 +30,7 @@ You're now welcome to start working on it.
 
 That will help us auto-close this issue when your PR is merged.
 
-Happy contributing! 💻✨
-            `;
+Happy contributing! 💻✨`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
