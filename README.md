@@ -1,3 +1,14 @@
+## 💬 Example Prompts
+
+- "Solve 'Two Sum' in Python and explain it step-by-step."
+- "Explain binary search and give a working example."
+- "Compare recursion vs dynamic programming."
+- "Give an optimized solution for 'Longest Substring Without Repeating Characters'."
+
+
+
+
+
 # 🤖 LeetCode AI Assistant - Chrome Extension
 
 > **Intelligent AI-powered coding assistant for LeetCode problems with advanced features and beautiful UI**
