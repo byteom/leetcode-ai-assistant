@@ -1,0 +1,44 @@
+name: Auto Comment on New Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment-on-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Comment to issue creator
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const username = issue.user.login;
+
+            const message = `
+Hi @${username} 👋
+
+Thanks for creating this issue! 🎉  
+You're now welcome to start working on it.
+
+🚀 **Next steps for you:**
+1. **Fork** this repository.
+2. **Create a branch** in your fork.
+3. Start working on your solution.
+4. Raise a **Pull Request** with this line in description: \`Fixes #${issue.number}\`.
+
+That will help us auto-close this issue when your PR is merged.
+
+Happy contributing! 💻✨
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: message
+            });
+
+            console.log(`✅ Commented to @${username} on issue #${issue.number}`);
