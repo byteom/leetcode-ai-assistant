@@ -1332,23 +1332,32 @@ Format your response with clear sections and use markdown formatting. Highlight 
   }
   
   // Function to minimize modal to corner
-  function minimizeToCorner(modal) {
-    // Save current state
-    const responseContent = document.getElementById('lc-ai-response-content');
-    if (responseContent) {
-      modalState.currentResponse = responseContent.innerHTML;
-    }
-    
-    // Save original size and position
-    if (!modalState.originalSize) {
-      modalState.originalSize = {
-        width: modal.style.width,
-        height: modal.style.height,
-        left: modal.style.left,
-        top: modal.style.top,
-        transform: modal.style.transform
-      };
-    }
+ function minimizeToCorner(modal) {
+  const modalBody = document.getElementById('lc-ai-modal-body');
+  if (!modal) return;
+
+  modal.classList.add('minimized');
+  if (modalBody) {
+    modalBody.style.display = 'none'; // Hide body content
+  }
+
+  // Optional: update state
+  modalState.isMinimized = true;
+}
+
+function maximizeModal(modal) {
+  const modalBody = document.getElementById('lc-ai-modal-body');
+  if (!modal) return;
+
+  modal.classList.remove('minimized');
+  if (modalBody) {
+    modalBody.style.display = 'flex'; // Restore body
+  }
+
+  // Optional: update state
+  modalState.isMinimized = false;
+}
+
     
     // Minimize to corner - smaller size
     modal.style.width = '200px';
