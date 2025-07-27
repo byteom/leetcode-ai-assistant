@@ -2,7 +2,7 @@ name: Close All Existing PRs on New PR
 
 on:
   pull_request:
-    types: [opened] # This workflow triggers when a new pull request is opened.
+    types: [opened, reopened] # This workflow now triggers when a new pull request is opened or an existing one is reopened.
 
 jobs:
   close_other_prs:
@@ -23,7 +23,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN for authentication.
         run: |
-          echo "New PR opened: #${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}"
+          echo "Current PR event triggered: #${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}"
           echo "Listing all open pull requests..."
 
           # Get a list of all open pull request numbers as a JSON array
@@ -35,14 +35,14 @@ jobs:
           else
             echo "Found open PRs: $OPEN_PR_NUMBERS"
             for PR_NUMBER in $OPEN_PR_NUMBERS; do
-              # Check if the current PR in the loop is the one that just opened.
-              # We don't want to close the newly opened PR itself.
+              # Check if the current PR in the loop is the one that just triggered the workflow.
+              # We don't want to close the PR that just opened or was reopened.
               if [ "$PR_NUMBER" -ne "${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}" ]; then
                 echo "Closing pull request #${PR_NUMBER}..."
-                gh pr close "$PR_NUMBER" --comment "This pull request was automatically closed because a new pull request (#${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}) was opened."
+                gh pr close "$PR_NUMBER" --comment "This pull request was automatically closed because a new pull request (#${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}) was opened or an existing one was reopened."
                 echo "Pull request #${PR_NUMBER} closed."
               else
-                echo "Skipping the newly opened pull request #${PR_NUMBER}."
+                echo "Skipping the pull request #${PR_NUMBER} that triggered this workflow."
               fi
             done
           fi
