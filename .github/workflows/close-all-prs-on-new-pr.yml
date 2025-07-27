@@ -1,0 +1,48 @@
+name: Close All Existing PRs on New PR
+
+on:
+  pull_request:
+    types: [opened] # This workflow triggers when a new pull request is opened.
+
+jobs:
+  close_other_prs:
+    runs-on: ubuntu-latest # The job will run on a fresh Ubuntu virtual machine.
+
+    permissions:
+      pull-requests: write # Grant write permission to the workflow for managing pull requests.
+
+    steps:
+      - name: Checkout repository # Checkout the repository code.
+        uses: actions/checkout@v4
+
+      - name: Get current PR number # Get the number of the pull request that triggered this workflow.
+        id: get_current_pr
+        run: echo "CURRENT_PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+
+      - name: List and Close Other Open Pull Requests # List all open PRs and close them, excluding the current one.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use the default GITHUB_TOKEN for authentication.
+        run: |
+          echo "New PR opened: #${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}"
+          echo "Listing all open pull requests..."
+
+          # Get a list of all open pull request numbers as a JSON array
+          # The 'jq -r .[].number' command extracts just the numbers from the JSON output.
+          OPEN_PR_NUMBERS=$(gh pr list --state open --json number | jq -r '.[].number')
+
+          if [ -z "$OPEN_PR_NUMBERS" ]; then
+            echo "No other open pull requests found to close."
+          else
+            echo "Found open PRs: $OPEN_PR_NUMBERS"
+            for PR_NUMBER in $OPEN_PR_NUMBERS; do
+              # Check if the current PR in the loop is the one that just opened.
+              # We don't want to close the newly opened PR itself.
+              if [ "$PR_NUMBER" -ne "${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}" ]; then
+                echo "Closing pull request #${PR_NUMBER}..."
+                gh pr close "$PR_NUMBER" --comment "This pull request was automatically closed because a new pull request (#${{ steps.get_current_pr.outputs.CURRENT_PR_NUMBER }}) was opened."
+                echo "Pull request #${PR_NUMBER} closed."
+              else
+                echo "Skipping the newly opened pull request #${PR_NUMBER}."
+              fi
+            done
+          fi
